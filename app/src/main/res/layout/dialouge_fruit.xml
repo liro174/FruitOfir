@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageViewCh3"
+        android:layout_width="72dp"
+        android:layout_height="73dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="284dp"
+        android:src="@drawable/banana"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageViewCh2"
+        android:layout_width="72dp"
+        android:layout_height="73dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="72dp"
+        android:src="@drawable/apple"
+        app:layout_constraintBottom_toTopOf="@+id/imageMain"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCh3" />
+
+    <ImageView
+        android:id="@+id/imageViewCh1"
+        android:layout_width="72dp"
+        android:layout_height="73dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginBottom="284dp"
+        android:src="@drawable/strawberry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageViewCh2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/fruitName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="64dp"
+        android:gravity="center"
+        android:hint="fruit name"
+        app:layout_constraintBottom_toTopOf="@+id/fruitDescription"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <EditText
+        android:id="@+id/fruitDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="144dp"
+        android:gravity="center"
+        android:hint="description"
+        app:layout_constraintBottom_toTopOf="@+id/checkBoxFav"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <CheckBox
+        android:id="@+id/checkBoxFav"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="200dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewCh2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageMain"
+        android:layout_width="120dp"
+        android:layout_height="91dp"
+        android:layout_marginEnd="144dp"
+        android:layout_marginBottom="120dp"
+        android:src="@drawable/emptyheart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

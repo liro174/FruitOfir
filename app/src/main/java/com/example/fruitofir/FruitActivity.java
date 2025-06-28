@@ -1,8 +1,14 @@
 package com.example.fruitofir;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -10,6 +16,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +29,8 @@ public class FruitActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private MyAdapter myAdapter;
     private List<FruitItem> fruitList;
+    private FloatingActionButton addFruitButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +44,76 @@ public class FruitActivity extends AppCompatActivity {
 
 
         setUpRecyclerView();
+        setUpFloatingActionButton();
 
 
+    }
+    private void setUpFloatingActionButton() {
+        FloatingActionButton fab = findViewById(R.id.FloataddFruit);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Inflate the custom dialog layout
+                View dialogView = LayoutInflater.from(FruitActivity.this).inflate(R.layout.dialouge_fruit, null);
+
+                EditText nameInput = dialogView.findViewById(R.id.fruitName);
+                EditText descInput = dialogView.findViewById(R.id.fruitDescription);
+                CheckBox fav = dialogView.findViewById(R.id.checkBoxFav);
+                ImageView imgCh1 = dialogView.findViewById(R.id.imageViewCh1);
+                ImageView imgCh2 = dialogView.findViewById(R.id.imageViewCh2);
+                ImageView imgCh3 = dialogView.findViewById(R.id.imageViewCh3);
+                ImageView imgFruit = dialogView.findViewById(R.id.imageMain);
+
+                // Set default image
+                imgFruit.setImageResource(R.drawable.redheart);
+                imgFruit.setTag(R.drawable.redheart);
+
+                // ✅ Set images in the choices and their tags (replace with your real images)
+                imgCh1.setImageResource(R.drawable.strawberry);
+                imgCh1.setTag(R.drawable.strawberry);
+
+                imgCh2.setImageResource(R.drawable.apple);
+                imgCh2.setTag(R.drawable.apple);
+
+                imgCh3.setImageResource(R.drawable.banana);
+                imgCh3.setTag(R.drawable.banana);
+
+                // 👆 When user clicks on small image, update main image
+                imgCh1.setOnClickListener(v -> {
+                    imgFruit.setImageResource((int) imgCh1.getTag());
+                    imgFruit.setTag(imgCh1.getTag());
+                });
+
+                imgCh2.setOnClickListener(v -> {
+                    imgFruit.setImageResource((int) imgCh2.getTag());
+                    imgFruit.setTag(imgCh2.getTag());
+                });
+
+                imgCh3.setOnClickListener(v -> {
+                    imgFruit.setImageResource((int) imgCh3.getTag());
+                    imgFruit.setTag(imgCh3.getTag());
+                });
+
+                // Build dialog
+                AlertDialog.Builder builder = new AlertDialog.Builder(FruitActivity.this);
+                builder.setTitle("Add New Fruit")
+                        .setView(dialogView)
+                        .setPositiveButton("Add", (dialog, which) -> {
+                            String name = nameInput.getText().toString();
+                            String description = descInput.getText().toString();
+                            boolean favStatus = fav.isChecked();
+                            int imageResource = (int) imgFruit.getTag();
+                            fruitList.add(new FruitItem(imageResource, name, description, favStatus));
+                            myAdapter.notifyItemInserted(fruitList.size() - 1);
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                        .setCancelable(false);
+
+                builder.show();
+            }
+        });
     }
 
     private void setUpRecyclerView() {
